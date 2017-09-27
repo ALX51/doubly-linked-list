@@ -7,7 +7,8 @@ class LinkedList {
       this._tail = null;
     }
 
-    append(data) {
+    append(data) { 
+        
       if (this.length == 0) {
         this.list[0] = new Node(data);
         this.length = 1;
@@ -19,6 +20,7 @@ class LinkedList {
         this.length = this.list.length;
         this._tail = this.list[this.length - 1];          
       }
+    
       return this;
     }
 
@@ -36,24 +38,19 @@ class LinkedList {
       return this._tail.data;
     }
 
-    at(index) {
-      return this.list[index].data;
+    at(index) {        
+      return this.list[index].data;    
     }
 
     insertAt(index, data) {
-      if (this.length == 0) {
+      if ((this.length == 0) || (this.length == index)) {
         this.append(data);
-      } else if ((this.length - 1 ) == index){
-          this.list[index].data = data;
-          this.list[index - 1].next = data;
       } else {
-        this.list[index].data = data;
-        if ((this.list[index - 1].next) != null) {
-          this.list[index - 1].next = data;
-        }
-        if ((this.list[index + 1].prev) != null) {
-          this.list[index + 1].prev = data;
-        }
+        this.list.splice(index, 0, new Node(data, this.list[index -1].data, this.list[index -1].data));
+        this.list[index - 1].next =  this.list[index].data;
+        this.list[index + 1].prev =  this.list[index].data;  
+        this.length = this.list.length;
+        this._tail = this.list[this.length - 1];
       }
     }
 
